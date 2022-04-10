@@ -17,7 +17,7 @@ const authMiddleware = async (req: express.Request, res: express.Response, next:
     req.user = verifiedToken;
     next();
   } catch (err) {
-    res.status(400).json({ error: true, data: { message: [`Restricted Route`] } });
+    res.status(201).json({ error: true, data: { message: [`Restricted Route`] } });
   }
 };
 

@@ -9,7 +9,7 @@ const validate = (req: express.Request, res: express.Response) => {
     valiErrors.array().forEach(err => {
       errArr.push(err.msg);
     });
-    res.status(400).json({ error: true, data: { message: errArr } });
+    res.status(201).json({ error: true, data: { message: errArr } });
     return true;
   }
   return false;

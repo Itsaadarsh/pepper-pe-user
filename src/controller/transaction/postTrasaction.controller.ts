@@ -17,19 +17,19 @@ export const postTransactionController = async (req: Request, res: Response) => 
     const { to, amount, remarks }: { to: number; amount: number; remarks: string } = req.body;
 
     if (from == to) {
-      res.status(400).json({ error: true, data: { message: ['Incorrect transfer'] } });
+      res.status(201).json({ error: true, data: { message: ['Incorrect transfer'] } });
       return;
     }
 
     const isFromAccountExist = await isAccountNumberAvailableRepo(+from);
 
     if (isFromAccountExist.length == 0) {
-      res.status(400).json({ error: true, data: { message: ['Your Account Number is incorrect!'] } });
+      res.status(201).json({ error: true, data: { message: ['Your Account Number is incorrect!'] } });
       return;
     }
 
     if (amount > isFromAccountExist[0].account_balance) {
-      res.status(400).json({
+      res.status(201).json({
         error: true,
         data: {
           message: [
@@ -43,7 +43,7 @@ export const postTransactionController = async (req: Request, res: Response) => 
     const isToAccountExist = await isAccountNumberAvailableRepo(+to);
 
     if (isToAccountExist.length == 0) {
-      res.status(400).json({ error: true, data: { message: ['Recipients Account Number is incorrect!'] } });
+      res.status(201).json({ error: true, data: { message: ['Recipients Account Number is incorrect!'] } });
       return;
     }
 
@@ -77,6 +77,6 @@ export const postTransactionController = async (req: Request, res: Response) => 
     await producerEmit('pp_admin_topic', kafkaData, 'transactionCreated');
     return;
   } catch (err) {
-    res.status(400).json({ error: true, data: { message: [err.message] } });
+    res.status(201).json({ error: true, data: { message: [err.message] } });
   }
 };

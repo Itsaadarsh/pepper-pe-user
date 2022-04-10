@@ -43,6 +43,6 @@ export const getTransactionsController = async (req: Request, res: Response) => 
     res.status(201).json({ error: false, data: responseData });
     return;
   } catch (err) {
-    res.status(400).json({ error: true, data: { message: [err.message] } });
+    res.status(201).json({ error: true, data: { message: [err.message] } });
   }
 };
